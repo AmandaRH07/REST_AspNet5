@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using RestAspNet.Model.Context;
 using RestAspNet.Services.Implementations;
 
 namespace RestAspNet
@@ -23,7 +25,11 @@ namespace RestAspNet
 
             services.AddControllers();
 
-            services.AddScoped<IPersonService, PersonServiceImplementation>();
+            var connection = Configuration["SqlServerConnection:SqlServerConnectionString"];
+
+            services.AddDbContext<SqlServerContext>(options => options.UseSqlServer(connection));
+
+            services.AddScoped<IPersonService, PersonService>();
 
             services.AddSwaggerGen(c =>
             {
