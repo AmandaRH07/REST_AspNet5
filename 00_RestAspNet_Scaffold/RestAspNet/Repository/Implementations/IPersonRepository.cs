@@ -1,15 +1,15 @@
 ﻿using RestAspNet.Model;
 using System.Collections.Generic;
 
-namespace RestAspNet.Services.Implementations
+namespace RestAspNet.Repository.Implementations
 {
-    // person = business
-    public interface IPersonService
+    public interface IPersonRepository
     {
         Person Create(Person person);
         Person FindByID(int id);
         List<Person> FindAll();
         Person Update(Person person);
         void Delete(int id);
+        bool Exists(int id);
     }
 }

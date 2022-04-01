@@ -1,5 +1,6 @@
 ﻿using RestAspNet.Model;
 using RestAspNet.Model.Context;
+using RestAspNet.Repository.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,80 +9,36 @@ namespace RestAspNet.Services.Implementations
 {
     public class PersonService : IPersonService
     {
-        private readonly SqlServerContext _context;
+        private readonly IPersonRepository _personRepository;
 
-        public PersonService(SqlServerContext context)
+        public PersonService(IPersonRepository personRepository)
         {
-            _context = context;
+            _personRepository = personRepository;
         }
 
         public List<Person> FindAll()
         {
-            return _context.Persons.ToList();
+            return _personRepository.FindAll();
         }
 
         public Person FindByID(int id)
         {
-            return _context.Persons.SingleOrDefault(p => p.Id.Equals(id));
+            return _personRepository.FindByID(id);
         }
 
         public Person Create(Person person)
         {
-            try
-            {
-                _context.Add(person);
-                _context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return person;
+            return _personRepository.Create(person);
         }
 
         public Person Update(Person person)
         {
-            if (!Exists(person.Id)) return new Person();
-
-            var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(person.Id));
-
-            if (result != null)
-            {
-                try
-                {
-                    _context.Entry(result).CurrentValues.SetValues(person);
-                    _context.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-
-            return person;
+            return _personRepository.Update(person);
         }
 
         public void Delete(int id)
         {
-            var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(id));
-
-            if (result != null)
-            {
-                try
-                {
-                    _context.Persons.Remove(result);
-                    _context.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-        }
-
-        private bool Exists(int id)
-        {
-            return _context.Persons.Any(p => p.Id.Equals(id));
+            _personRepository.Delete(id);
         }
     }
 }

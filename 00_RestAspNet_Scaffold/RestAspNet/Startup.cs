@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RestAspNet.Model.Context;
+using RestAspNet.Repository.Implementations;
 using RestAspNet.Services.Implementations;
 
 namespace RestAspNet
@@ -26,10 +27,14 @@ namespace RestAspNet
             services.AddControllers();
 
             var connection = Configuration["SqlServerConnection:SqlServerConnectionString"];
-
             services.AddDbContext<SqlServerContext>(options => options.UseSqlServer(connection));
 
+            //Versioning API
+            services.AddApiVersioning();
+
+            //Dependency Injection
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
 
             services.AddSwaggerGen(c =>
             {
