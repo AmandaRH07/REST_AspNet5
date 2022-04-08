@@ -20,7 +20,7 @@ namespace RestAspNet.Repository.Implementations
             return _context.Persons.ToList();
         }
 
-        public Person FindByID(int id)
+        public Person FindByID(long id)
         {
             return _context.Persons.SingleOrDefault(p => p.Id.Equals(id));
         }
@@ -61,7 +61,7 @@ namespace RestAspNet.Repository.Implementations
             return person;
         }
 
-        public void Delete(int id)
+        public void Delete(long id)
         {
             var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(id));
 
@@ -79,7 +79,7 @@ namespace RestAspNet.Repository.Implementations
             }
         }
 
-        public bool Exists(int id)
+        public bool Exists(long id)
         {
             return _context.Persons.Any(p => p.Id.Equals(id));
         }

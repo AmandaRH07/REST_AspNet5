@@ -5,15 +5,15 @@ namespace RestAspNet.Model
     [Table("person")]
     public class Person
     {
-        [Column("Id")]
-        public int Id { get; set; }
-        [Column("First_Name")]
+        [Column("id")]
+        public long Id { get; set; }
+        [Column("first_name")]
         public string First_Name { get; set; }
-        [Column("Last_Name")]
+        [Column("last_name")]
         public string Last_Name { get; set; }
-        [Column("Address")]
+        [Column("address")]
         public string Address { get; set; }
-        [Column("Gender")]
+        [Column("gender")]
         public string Gender { get; set; }
     }
 }

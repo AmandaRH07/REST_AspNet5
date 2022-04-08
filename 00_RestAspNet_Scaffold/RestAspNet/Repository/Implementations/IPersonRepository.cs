@@ -6,10 +6,10 @@ namespace RestAspNet.Repository.Implementations
     public interface IPersonRepository
     {
         Person Create(Person person);
-        Person FindByID(int id);
+        Person FindByID(long id);
         List<Person> FindAll();
         Person Update(Person person);
-        void Delete(int id);
-        bool Exists(int id);
+        void Delete(long id);
+        bool Exists(long id);
     }
 }

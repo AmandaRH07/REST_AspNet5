@@ -21,7 +21,7 @@ namespace RestAspNet.Services.Implementations
             return _personRepository.FindAll();
         }
 
-        public Person FindByID(int id)
+        public Person FindByID(long id)
         {
             return _personRepository.FindByID(id);
         }
@@ -36,7 +36,7 @@ namespace RestAspNet.Services.Implementations
             return _personRepository.Update(person);
         }
 
-        public void Delete(int id)
+        public void Delete(long id)
         {
             _personRepository.Delete(id);
         }
