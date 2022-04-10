@@ -1,9 +1,6 @@
 ﻿using RestAspNet.Model;
-using RestAspNet.Model.Context;
 using RestAspNet.Repository.Implementations;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace RestAspNet.Services.Implementations
 {

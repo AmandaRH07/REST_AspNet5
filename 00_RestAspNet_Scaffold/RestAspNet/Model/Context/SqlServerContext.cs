@@ -11,5 +11,6 @@ namespace RestAspNet.Model.Context
         public SqlServerContext(DbContextOptions<SqlServerContext> options) : base(options) { }
 
         public DbSet<Person> Persons { get; set; }
+        public DbSet<Book> Book { get; set; }
     }
 }
