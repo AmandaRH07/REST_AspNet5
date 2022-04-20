@@ -1,17 +1,14 @@
 ﻿using RestAspNet.Model;
 using RestAspNet.Repository.Implementations;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestAspNet.Services.Implementations
 {
     public class BookService : IBookService
     {
-        private readonly IBookRepository _bookRepository;
+        private readonly IRepository<Book> _bookRepository;
 
-        public BookService(IBookRepository bookRepository)
+        public BookService(IRepository<Book> bookRepository)
         {
             _bookRepository = bookRepository;
         }
@@ -22,7 +19,7 @@ namespace RestAspNet.Services.Implementations
 
         public Book FindById(long id)
         {
-            return _bookRepository.FindById(id);
+            return _bookRepository.FindByID(id);
         }
 
         public Book Create(Book book)

@@ -1,75 +1,81 @@
-﻿using RestAspNet.Model;
+﻿using Microsoft.EntityFrameworkCore;
+using RestAspNet.Model.Base;
 using RestAspNet.Model.Context;
+using RestAspNet.Repository.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace RestAspNet.Repository.Implementations
+namespace RestAspNet.Repository.Generic
 {
-    public class PersonRepository : IPersonRepository
+    public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly SqlServerContext _context;
 
-        public PersonRepository(SqlServerContext context)
+        private readonly DbSet<T> dataset;
+
+        public GenericRepository(SqlServerContext context)
         {
             _context = context;
+            dataset = _context.Set<T>();
         }
 
-        public List<Person> FindAll()
+        public List<T> FindAll()
         {
-            return _context.Persons.ToList();
+            return dataset.ToList();
         }
 
-        public Person FindByID(long id)
+        public T FindByID(long id)
         {
-            return _context.Persons.SingleOrDefault(p => p.Id.Equals(id));
+            return dataset.SingleOrDefault(p => p.Id.Equals(id));
         }
 
-        public Person Create(Person person)
+        public T Create(T item)
         {
             try
             {
-                _context.Add(person);
+                dataset.Add(item);
                 _context.SaveChanges();
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return person;
+            return item;
         }
 
-        public Person Update(Person person)
+        public T Update(T item)
         {
-            if (!Exists(person.Id)) return new Person();
-
-            var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(person.Id));
+            var result = dataset.SingleOrDefault(p => p.Id.Equals(item.Id));
 
             if (result != null)
             {
                 try
                 {
-                    _context.Entry(result).CurrentValues.SetValues(person);
+                    _context.Entry(result).CurrentValues.SetValues(item);
                     _context.SaveChanges();
+                    return result;
                 }
                 catch (Exception ex)
                 {
                     throw ex;
                 }
             }
-
-            return person;
+            else
+            {
+                return null;
+            }
         }
 
         public void Delete(long id)
         {
-            var result = _context.Persons.SingleOrDefault(p => p.Id.Equals(id));
+            var result = dataset.SingleOrDefault(p => p.Id.Equals(id));
 
             if (result != null)
             {
                 try
                 {
-                    _context.Persons.Remove(result);
+                    dataset.Remove(result);
                     _context.SaveChanges();
                 }
                 catch (Exception ex)
@@ -81,7 +87,7 @@ namespace RestAspNet.Repository.Implementations
 
         public bool Exists(long id)
         {
-            return _context.Persons.Any(p => p.Id.Equals(id));
+            return dataset.Any(p => p.Id.Equals(id));
         }
     }
 }

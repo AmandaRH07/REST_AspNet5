@@ -6,9 +6,9 @@ namespace RestAspNet.Services.Implementations
 {
     public class PersonService : IPersonService
     {
-        private readonly IPersonRepository _personRepository;
+        private readonly IRepository<Person> _personRepository;
 
-        public PersonService(IPersonRepository personRepository)
+        public PersonService(IRepository<Person> personRepository)
         {
             _personRepository = personRepository;
         }

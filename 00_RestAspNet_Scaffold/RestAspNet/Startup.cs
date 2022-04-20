@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RestAspNet.Model.Context;
+using RestAspNet.Repository.Generic;
 using RestAspNet.Repository.Implementations;
 using RestAspNet.Services.Implementations;
 using Serilog;
@@ -30,7 +31,6 @@ namespace RestAspNet
                 .CreateLogger();
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -48,9 +48,9 @@ namespace RestAspNet
 
             //Dependency Injection
             services.AddScoped<IPersonService, PersonService>();
-            services.AddScoped<IPersonRepository, PersonRepository>();
+            //services.AddScoped<IRepository, PersonRepository>();
             services.AddScoped<IBookService, BookService>();
-            services.AddScoped<IBookRepository, BookRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
             services.AddSwaggerGen(c =>
             {
