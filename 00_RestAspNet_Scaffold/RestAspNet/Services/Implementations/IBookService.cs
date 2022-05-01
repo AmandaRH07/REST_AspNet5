@@ -1,17 +1,14 @@
-﻿using RestAspNet.Model;
-using System;
+﻿using RestAspNet.Data.Converter.Value_Object;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RestAspNet.Services.Implementations
 {
     public interface IBookService
     {
-        List<Book> FindAll();
-        Book FindById(long id);
-        Book Create(Book book);
-        Book Update(Book book);
+        List<BookVO > FindAll();
+        BookVO  FindById(long id);
+        BookVO  Create(BookVO  book);
+        BookVO  Update(BookVO  book);
         public void Delete(long id);
     }
 }

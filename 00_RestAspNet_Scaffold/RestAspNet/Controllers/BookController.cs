@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestAspNet.Model;
+using RestAspNet.Data.Converter.Value_Object;
 using RestAspNet.Services.Implementations;
 
 namespace RestAspNet.Controllers
@@ -36,7 +36,7 @@ namespace RestAspNet.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Book book)
+        public IActionResult Post([FromBody] BookVO book)
         {
             if (book == null) return BadRequest();
 
@@ -44,7 +44,7 @@ namespace RestAspNet.Controllers
         }
         
         [HttpPut]
-        public IActionResult Put([FromBody] Book book)
+        public IActionResult Put([FromBody] BookVO book)
         {
             if (book == null) return BadRequest();
 

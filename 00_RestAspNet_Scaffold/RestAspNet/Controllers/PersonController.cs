@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestAspNet.Model;
+using RestAspNet.Data.Converter.Value_Object;
 using RestAspNet.Services.Implementations;
 
 namespace RestAspNet.Controllers
@@ -36,7 +36,7 @@ namespace RestAspNet.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Person person)
+        public IActionResult Post([FromBody] PersonVO  person)
         {
             if (person == null) return BadRequest();
 
@@ -44,7 +44,7 @@ namespace RestAspNet.Controllers
         }
         
         [HttpPut]
-        public IActionResult Put([FromBody] Person person)
+        public IActionResult Put([FromBody] PersonVO  person)
         {
             if (person == null) return BadRequest();
 

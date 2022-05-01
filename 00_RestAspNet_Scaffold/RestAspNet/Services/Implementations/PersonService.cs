@@ -1,4 +1,6 @@
-﻿using RestAspNet.Model;
+﻿using RestAspNet.Data.Converter.Implementacao;
+using RestAspNet.Data.Converter.Value_Object;
+using RestAspNet.Model;
 using RestAspNet.Repository.Implementations;
 using System.Collections.Generic;
 
@@ -7,30 +9,38 @@ namespace RestAspNet.Services.Implementations
     public class PersonService : IPersonService
     {
         private readonly IRepository<Person> _personRepository;
+        private readonly PersonConverter _converter;
 
         public PersonService(IRepository<Person> personRepository)
         {
             _personRepository = personRepository;
+            _converter = new PersonConverter(); 
         }
 
-        public List<Person> FindAll()
+        public List<PersonVO> FindAll()
         {
-            return _personRepository.FindAll();
+            return _converter.Parse(_personRepository.FindAll());
         }
 
-        public Person FindByID(long id)
+        public PersonVO FindByID(long id)
         {
-            return _personRepository.FindByID(id);
+            return _converter.Parse(_personRepository.FindByID(id));
         }
 
-        public Person Create(Person person)
+        public PersonVO Create(PersonVO person)
         {
-            return _personRepository.Create(person);
+            var personEntity = _converter.Parse(person);
+            personEntity = _personRepository.Create(personEntity);
+
+            return _converter.Parse(personEntity);
         }
 
-        public Person Update(Person person)
+        public PersonVO Update(PersonVO person)
         {
-            return _personRepository.Update(person);
+            var personEntity = _converter.Parse(person);
+            personEntity = _personRepository.Update(personEntity);
+
+            return _converter.Parse(personEntity);
         }
 
         public void Delete(long id)
