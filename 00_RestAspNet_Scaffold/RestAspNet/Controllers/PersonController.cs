@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestAspNet.Data.Converter.Value_Object;
+using RestAspNet.Hypermedia.Filters;
 using RestAspNet.Services.Implementations;
 
 namespace RestAspNet.Controllers
@@ -20,12 +21,14 @@ namespace RestAspNet.Controllers
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HypermediaFilter))]
         public IActionResult Get()
         {
             return Ok(_personService.FindAll());
         }
 
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HypermediaFilter))]
         public IActionResult Get(long id)
         {
             var person = _personService.FindByID(id);
@@ -36,6 +39,8 @@ namespace RestAspNet.Controllers
         }
 
         [HttpPost]
+
+        [TypeFilter(typeof(HypermediaFilter))]
         public IActionResult Post([FromBody] PersonVO  person)
         {
             if (person == null) return BadRequest();
@@ -44,6 +49,7 @@ namespace RestAspNet.Controllers
         }
         
         [HttpPut]
+        [TypeFilter(typeof(HypermediaFilter))]
         public IActionResult Put([FromBody] PersonVO  person)
         {
             if (person == null) return BadRequest();

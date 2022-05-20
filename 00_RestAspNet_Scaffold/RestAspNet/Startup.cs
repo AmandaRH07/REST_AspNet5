@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
+using RestAspNet.Hypermedia.Enricher;
+using RestAspNet.Hypermedia.Filters;
+using RestAspNet.Model;
 using RestAspNet.Model.Context;
 using RestAspNet.Repository.Generic;
 using RestAspNet.Repository.Implementations;
@@ -51,6 +54,12 @@ namespace RestAspNet
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/jspn"));
             }).AddXmlSerializerFormatters();
 
+            var filterOptions = new HypermediaFilterOptions();
+            filterOptions.ContentResponseEnricherList.Add(new PersonEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new BooksEnricher());
+
+            services.AddSingleton(filterOptions);
+
             //Versioning API
             services.AddApiVersioning();
 
@@ -85,6 +94,7 @@ namespace RestAspNet
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
         }
 
