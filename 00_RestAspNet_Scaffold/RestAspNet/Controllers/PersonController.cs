@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using RestAspNet.Data.Converter.Value_Object;
 using RestAspNet.Hypermedia.Filters;
 using RestAspNet.Services.Implementations;
+using System.Collections.Generic;
 
 namespace RestAspNet.Controllers
 {
@@ -21,6 +22,10 @@ namespace RestAspNet.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType((200), Type = typeof(List<PersonVO>))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HypermediaFilter))]
         public IActionResult Get()
         {
@@ -28,6 +33,10 @@ namespace RestAspNet.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HypermediaFilter))]
         public IActionResult Get(long id)
         {
@@ -39,7 +48,9 @@ namespace RestAspNet.Controllers
         }
 
         [HttpPost]
-
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HypermediaFilter))]
         public IActionResult Post([FromBody] PersonVO  person)
         {
@@ -49,6 +60,9 @@ namespace RestAspNet.Controllers
         }
         
         [HttpPut]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         [TypeFilter(typeof(HypermediaFilter))]
         public IActionResult Put([FromBody] PersonVO  person)
         {
@@ -58,6 +72,9 @@ namespace RestAspNet.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType((200), Type = typeof(PersonVO))]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
         public IActionResult Delete(long id)
         {
             _personService.Delete(id);
