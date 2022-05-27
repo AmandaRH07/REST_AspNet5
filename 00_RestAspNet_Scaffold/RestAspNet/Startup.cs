@@ -38,6 +38,13 @@ namespace RestAspNet
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddDefaultPolicy(builder =>
+            {
+                builder.AllowAnyOrigin();
+                builder.AllowAnyMethod();
+                builder.AllowAnyHeader();
+            }));
+
             services.AddControllers();
 
             var connection = Configuration["SqlServerConnection:SqlServerConnectionString"];
@@ -97,6 +104,8 @@ namespace RestAspNet
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseSwagger();
             app.UseSwaggerUI(c => {
