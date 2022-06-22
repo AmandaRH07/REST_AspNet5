@@ -6,5 +6,6 @@ namespace RestAspNet.Repository
     public interface IUserRepository
     {
         User ValidadeCredentials(UserVO user);
+        User UpdateUserInfo(User user);
     }
 }
