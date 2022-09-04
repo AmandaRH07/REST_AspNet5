@@ -58,9 +58,8 @@ namespace RestAspNet.TokenService.Implementations
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            SecurityToken securityToken;
 
-            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out securityToken);
+            var principal = tokenHandler.ValidateToken(token, tokenValidationParameters, out SecurityToken securityToken);
 
             var jwtSecurityToken = securityToken as JwtSecurityToken;
 

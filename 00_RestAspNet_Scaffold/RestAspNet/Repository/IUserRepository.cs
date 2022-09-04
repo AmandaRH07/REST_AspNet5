@@ -6,6 +6,8 @@ namespace RestAspNet.Repository
     public interface IUserRepository
     {
         User ValidadeCredentials(UserVO user);
+        User ValidateCredentials(string userName);
+        bool RevokeToken(string userName);
         User UpdateUserInfo(User user);
     }
 }

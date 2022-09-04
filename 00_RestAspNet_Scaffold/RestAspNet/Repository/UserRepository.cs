@@ -23,6 +23,22 @@ namespace RestAspNet.Repository
             return _sqlServerContext.Users.FirstOrDefault(u => (u.UserName == user.UserName) && u.Password == pass);
         }
 
+        public User ValidateCredentials(string userName)
+        {
+            return _sqlServerContext.Users.SingleOrDefault(u => u.UserName == userName);
+        }
+        public bool RevokeToken(string userName)
+        {
+            var user = _sqlServerContext.Users.SingleOrDefault(u => u.UserName == userName);
+
+            if (user is null) return false;
+            user.RefreshToken = null;
+
+            _sqlServerContext.SaveChanges();
+
+            return true;
+        }
+
         public User UpdateUserInfo(User user)
         {
             if (_sqlServerContext.Users.Any(p => p.Id.Equals(user.Id))) return null;
