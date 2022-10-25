@@ -17,7 +17,8 @@ namespace RestAspNet.Data.Converter.Implementacao
                     First_Name = origem.First_Name,
                     Last_Name = origem.Last_Name,
                     Address = origem.Address,
-                    Gender = origem.Gender
+                    Gender = origem.Gender,
+                    Enabled = origem.Enabled
                 };
         }
 
@@ -30,7 +31,8 @@ namespace RestAspNet.Data.Converter.Implementacao
                     First_Name = origem.First_Name,
                     Last_Name = origem.Last_Name,
                     Address = origem.Address,
-                    Gender = origem.Gender
+                    Gender = origem.Gender,
+                    Enabled = origem.Enabled
                 };
         }
 

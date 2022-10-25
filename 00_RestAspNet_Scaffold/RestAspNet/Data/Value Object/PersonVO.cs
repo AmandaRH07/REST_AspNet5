@@ -13,6 +13,7 @@ namespace RestAspNet.Data.Converter.Value_Object
         public string Last_Name { get; set; }
         public string Address { get; set; }
         public string Gender { get; set; }
-        public List<HypermediaLink> Links { get; set; } = new List<HypermediaLink>();   
+        public bool Enabled { get; set; }
+        public List<HypermediaLink> Links { get; set; } = new List<HypermediaLink>();
     }
 }

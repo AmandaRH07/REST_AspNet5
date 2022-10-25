@@ -10,7 +10,7 @@ namespace RestAspNet.Repository.Generic
 {
     public class GenericRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly SqlServerContext _context;
+        protected readonly SqlServerContext _context;
 
         private readonly DbSet<T> dataset;
 

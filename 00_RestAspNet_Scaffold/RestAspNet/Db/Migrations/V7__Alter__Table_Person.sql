@@ -1,0 +1,1 @@
+﻿--ALTER TABLE person add enabled BIT default 'FALSE' Not Null;
