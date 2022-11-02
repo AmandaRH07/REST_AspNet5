@@ -1,8 +1,6 @@
 ﻿using RestAspNet.Data.Converter.Implementacao;
 using RestAspNet.Data.Converter.Value_Object;
-using RestAspNet.Model;
 using RestAspNet.Repository;
-using RestAspNet.Repository.Implementations;
 using System.Collections.Generic;
 
 namespace RestAspNet.Services.Implementations
@@ -26,6 +24,11 @@ namespace RestAspNet.Services.Implementations
         public PersonVO FindByID(long id)
         {
             return _converter.Parse(_personRepository.FindByID(id));
+        }
+
+        public List<PersonVO> FindByName(string firstName, string lastName)
+        {
+            return _converter.Parse(_personRepository.FindByName(firstName, lastName));
         }
 
         public PersonVO Create(PersonVO person)

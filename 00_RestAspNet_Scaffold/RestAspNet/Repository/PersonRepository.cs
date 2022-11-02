@@ -1,6 +1,8 @@
-﻿using RestAspNet.Model;
+﻿using Microsoft.AspNetCore.Http.Features;
+using RestAspNet.Model;
 using RestAspNet.Model.Context;
 using RestAspNet.Repository.Generic;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RestAspNet.Repository
@@ -31,6 +33,23 @@ namespace RestAspNet.Repository
             }
 
             return user;
+        }
+
+        public List<Person> FindByName(string firstName, string lastName)
+        {
+            var validFirstName = string.IsNullOrEmpty(firstName);
+            var validLastName = string.IsNullOrEmpty(lastName);
+
+            if (!validFirstName && !validLastName)
+                return _context.Persons.Where(x => x.First_Name.Contains(firstName) && x.Last_Name.Contains(lastName)).ToList(); 
+
+            else if (!validFirstName && validLastName)
+                return _context.Persons.Where(x => x.First_Name.Contains(firstName)).ToList();
+
+            else if (validFirstName && !validLastName)
+                return _context.Persons.Where(x => x.Last_Name.Contains(lastName)).ToList();
+
+            return null;
         }
     }
 }
