@@ -1,4 +1,4 @@
-﻿namespace RestAspNet.Hypermedia.Constants.NewFolder
+﻿namespace RestAspNet.Hypermedia.Constants
 {
     public sealed class ResponseTypeFormat
     {

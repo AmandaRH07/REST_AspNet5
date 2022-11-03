@@ -23,15 +23,15 @@ namespace RestAspNet.Controllers
             _personService = personService;
         }
 
-        [HttpGet]
+        [HttpGet("{sortDirection}/{size}/{currentPage}")]
         [ProducesResponseType((200), Type = typeof(List<PersonVO>))]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [TypeFilter(typeof(HypermediaFilter))]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] string name, string sortDirection, int size, int currentPage)
         {
-            return Ok(_personService.FindAll());
+            return Ok(_personService.FindWithPagedSearch(name, sortDirection, size, currentPage));
         }
 
         [HttpGet("{id}")]

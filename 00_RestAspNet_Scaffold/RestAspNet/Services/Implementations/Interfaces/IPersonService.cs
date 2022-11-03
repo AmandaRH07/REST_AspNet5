@@ -1,5 +1,5 @@
 ﻿using RestAspNet.Data.Converter.Value_Object;
-using RestAspNet.Model;
+using RestAspNet.Hypermedia.Utils;
 using System.Collections.Generic;
 
 namespace RestAspNet.Services.Implementations
@@ -11,6 +11,7 @@ namespace RestAspNet.Services.Implementations
         PersonVO  FindByID(long id);
         List<PersonVO> FindByName(string firstName, string lastName);
         List<PersonVO > FindAll();
+        PagedSearchVO<PersonVO> FindWithPagedSearch(string name, string sortDirection, int size, int currentPage);
         PersonVO  Update(PersonVO  person);
         PersonVO Disabled(long id);
         void Delete(long id);
