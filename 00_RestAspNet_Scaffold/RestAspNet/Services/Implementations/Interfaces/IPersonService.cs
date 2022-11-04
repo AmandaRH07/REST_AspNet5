@@ -11,7 +11,7 @@ namespace RestAspNet.Services.Implementations
         PersonVO  FindByID(long id);
         List<PersonVO> FindByName(string firstName, string lastName);
         List<PersonVO > FindAll();
-        PagedSearchVO<PersonVO> FindWithPagedSearch(string name, string sortDirection, int size, int currentPage);
+        PagedSearchVO<PersonVO> FindWithPagedSearch(string name, string sortDirection, int size, int page);
         PersonVO  Update(PersonVO  person);
         PersonVO Disabled(long id);
         void Delete(long id);

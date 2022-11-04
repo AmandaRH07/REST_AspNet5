@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestAspNet.Data.Converter.Value_Object;
+using RestAspNet.DTOs;
 using RestAspNet.Hypermedia.Filters;
 using RestAspNet.Services.Implementations;
 using System.Collections.Generic;
@@ -23,15 +24,19 @@ namespace RestAspNet.Controllers
             _personService = personService;
         }
 
-        [HttpGet("{sortDirection}/{size}/{currentPage}")]
+        [HttpGet("findPersonPaged")]
         [ProducesResponseType((200), Type = typeof(List<PersonVO>))]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [TypeFilter(typeof(HypermediaFilter))]
-        public IActionResult Get([FromQuery] string name, string sortDirection, int size, int currentPage)
+        public IActionResult Get2([FromQuery] PersonByFilterDTO personByFilterDTO)
         {
-            return Ok(_personService.FindWithPagedSearch(name, sortDirection, size, currentPage));
+            return Ok(_personService.FindWithPagedSearch(
+                personByFilterDTO.Name, 
+                personByFilterDTO.SortDirection, 
+                personByFilterDTO.Size, 
+                personByFilterDTO.Page));
         }
 
         [HttpGet("{id}")]
