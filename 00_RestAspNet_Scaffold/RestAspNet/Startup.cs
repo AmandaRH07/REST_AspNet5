@@ -26,6 +26,9 @@ using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Http;
+using RestAspNet.Services.Implementations.Interfaces;
 
 namespace RestAspNet
 {
@@ -128,9 +131,12 @@ namespace RestAspNet
             });
 
             //Dependency Injection
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddScoped<IPersonService, PersonService>();
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IFileService, FileService>();
 
             services.AddTransient<ITokenService, TS.TokenService>();
 
