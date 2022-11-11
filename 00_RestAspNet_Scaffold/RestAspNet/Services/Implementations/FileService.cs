@@ -21,7 +21,8 @@ namespace RestAspNet.Services.Implementations
 
         public byte[] GetFile(string fileName)
         {
-            throw new System.NotImplementedException();
+            var filePath = _basePath + fileName;
+            return File.ReadAllBytes(filePath);
         }
 
         public async Task<FileDetailVO> SaveFileToDisk(IFormFile file)
@@ -59,9 +60,16 @@ namespace RestAspNet.Services.Implementations
             return fileDetail;
         }
 
-        public Task<List<FileDetailVO>> SaveFileToDisk(List<IFormFile> file)
+        public async Task<List<FileDetailVO>> SaveFileToDisk(List<IFormFile> files)
         {
-            throw new System.NotImplementedException();
+            List<FileDetailVO> fileList = new List<FileDetailVO>();
+
+            foreach (var file in files)
+            {
+                fileList.Add(await SaveFileToDisk(file));
+            }
+
+            return fileList;
         }
     }
 }
