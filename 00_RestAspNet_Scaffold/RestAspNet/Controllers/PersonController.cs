@@ -30,13 +30,13 @@ namespace RestAspNet.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [TypeFilter(typeof(HypermediaFilter))]
-        public IActionResult Get2([FromQuery] PersonByFilterDTO personByFilterDTO)
+        public IActionResult GetPersonPaginatedSearch([FromQuery] PersonByFilterDto personByFilterDto)
         {
             return Ok(_personService.FindWithPagedSearch(
-                personByFilterDTO.Name, 
-                personByFilterDTO.SortDirection, 
-                personByFilterDTO.Size, 
-                personByFilterDTO.Page));
+                personByFilterDto.Name,
+                personByFilterDto.SortDirection,
+                personByFilterDto.Size,
+                personByFilterDto.Page));
         }
 
         [HttpGet("{id}")]

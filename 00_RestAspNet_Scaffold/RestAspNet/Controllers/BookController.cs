@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RestAspNet.Data.Converter.Value_Object;
+using RestAspNet.DTOs;
 using RestAspNet.Hypermedia.Filters;
 using RestAspNet.Services.Implementations;
 using System.Collections.Generic;
@@ -23,15 +24,19 @@ namespace RestAspNet.Controllers
             _bookService = bookService;
         }
 
-        [HttpGet]
+        [HttpGet("findBooksPaged")]
         [ProducesResponseType((200), Type = typeof(List<BookVO>))]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
         [TypeFilter(typeof(HypermediaFilter))]
-        public IActionResult Get()
+        public IActionResult GetBooksPaginatedSearch([FromQuery] BooksByFilterDto booksByFilterDto)
         {
-            return Ok(_bookService.FindAll());
+            return Ok(_bookService.FindWithPagedSearch(
+                booksByFilterDto.Title,
+                booksByFilterDto.SortDirection,
+                booksByFilterDto.Size,
+                booksByFilterDto.Page));
         }
 
         [HttpGet("{id}")]
