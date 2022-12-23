@@ -10,7 +10,7 @@ namespace RestAspNet.Hypermedia.Enricher
     {
         private readonly object _lock = new object();
 
-        protected override Task EnrichModel(BookVO content, IUrlHelper urlHelper)
+        protected override async Task EnrichModel(BookVO content, IUrlHelper urlHelper)
         {
             var path = "api/book/v1";
             string link = GetLink(content.Id, urlHelper, path);
@@ -54,7 +54,7 @@ namespace RestAspNet.Hypermedia.Enricher
                 Rel = RelationType.self,
                 Type = "int",
             });
-            return null;
+            await Task.FromResult<object>(null);
         }
 
         private string GetLink(long id, IUrlHelper urlHelper, string path)
